@@ -1,0 +1,40 @@
+docker postgres container run up command 
+
+docker run --name=todo-db -e POSTGRES_PASSWORD='qwerty' -d --rm postgres
+
+-> --rm means delete after exiting container 
+
+
+Migrate package installation 
+
+https://github.com/golang-migrate/migrate/tree/master/cmd/migrate
+choose version here:
+https://packagecloud.io/golang-migrate/migrate/packages/ubuntu/bionic/migrate_4.15.2_amd64.deb
+
+curl -s https://packagecloud.io/install/repositories/golang-migrate/migrate/script.deb.sh | sudo bash
+sudo apt-get install migrate=4.15.2
+
+
+Run migrate create command:
+migrate create -ext sql -dir schema -seq init
+
+Added global variable to bashrc file with common POSTGRESQL_URL
+export POSTGRESQL_URL='postgres://postgres:qwerty@localhost:5432/postgres?sslmode=disable'
+
+Run migrations:
+migrate -path ./schema -database $POSTGRESQL_URL up
+
+if variable dosen't work, use full command:
+migrate -database 'postgres://postgres:qwerty@localhost:5436/postgres?sslmode=disable' -path ./schema up
+
+if error happends while migration, fix error and "clean" migraion table by forcing command:
+igrate -database 'postgres://postgres:qwerty@localhost:5436/postgres?sslmode=disable' -path ./schema force 1   => (or your version)
+
+
+
+Package sqlx it build above standart sql package:
+go get -u github.com/jmoiron/sqlx
+
+
+Another usefull package is .env for environment variables:
+go get -u github.com/joho/godotenv
