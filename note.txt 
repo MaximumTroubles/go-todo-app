@@ -1,6 +1,6 @@
 docker postgres container run up command 
 
-docker run --name=todo-db -e POSTGRES_PASSWORD='qwerty' -d --rm postgres
+docker run --name=todo-db -e POSTGRES_PASSWORD='qwerty' -p=5436:5432 -d --rm postgres
 
 -> --rm means delete after exiting container 
 
@@ -38,3 +38,7 @@ go get -u github.com/jmoiron/sqlx
 
 Another usefull package is .env for environment variables:
 go get -u github.com/joho/godotenv
+
+
+New packed that I discover it is for logging. It wide use in go project called logrus:
+go get -u github.com/sirupsen/logrus

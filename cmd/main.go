@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"os"
 
 	"github.com/MaximumTroubles/go-todo-app"
@@ -10,17 +9,22 @@ import (
 	"github.com/MaximumTroubles/go-todo-app/pkg/service"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 )
 
 func main() {
+	//here we make Json format for logging that more preferred for log collectors system like (Graylog, Logstash etc.)
+	logrus.SetFormatter(new(logrus.JSONFormatter))
+
+	// viper package init it's read config file that we crated and take data from it
 	if err := initConfig(); err != nil {
-		log.Fatalf("error intializing configs: %s", err.Error())
+		logrus.Fatalf("error intializing configs: %s", err.Error())
 	}
 
 	//.env environment load
 	if err := godotenv.Load(); err != nil {
-		log.Fatalf("error loading env variables: %s", err.Error())
+		logrus.Fatalf("error loading env variables: %s", err.Error())
 	}
 
 	db, err := repository.NewPostgresDB(repository.Config{
@@ -33,7 +37,7 @@ func main() {
 	})
 
 	if err != nil {
-		log.Fatalf("failed to initialize db: %s", err.Error())
+		logrus.Fatalf("failed to initialize db: %s", err.Error())
 	}
 
 	repos := repository.NewRepository(db)
@@ -42,7 +46,7 @@ func main() {
 
 	srv := new(todo.Server)
 	if err := srv.Run(viper.GetString("port"), handlers.InitRoutes()); err != nil {
-		log.Fatalf("error occurred while running http server: %s", err.Error())
+		logrus.Fatalf("error occurred while running http server: %s", err.Error())
 	}
 
 }
