@@ -42,3 +42,10 @@ go get -u github.com/joho/godotenv
 
 New packed that I discover it is for logging. It wide use in go project called logrus:
 go get -u github.com/sirupsen/logrus
+
+
+Added to JWT package for authentication:
+go get -u github.com/dgrijalva/jwt-go
+
+
+Added new log package called logrus, added new package dotenv. Implemented Authntication endpoints with jwt token. Extand services and repository with new auth methods 
