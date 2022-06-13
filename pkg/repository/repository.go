@@ -14,7 +14,8 @@ type TodoList interface {
 	Create(id int, todoList todo.TodoList) (int, error)
 	GetAll(id int) ([]todo.TodoList, error)
 	GetById(id, listId int) (todo.TodoList, error)
-
+	Delete(id,listId int) error
+	Update(id, listId int, input todo.UpdateListInput) error
 }
 
 type TodoItem interface {

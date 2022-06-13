@@ -9,6 +9,10 @@ type Error struct {
 	Message string `json:"message"`
 }
 
+type StatusResponse struct {
+	Status string `json:"status"`
+}
+
 func NewErrorResponse(c *gin.Context, statusCode int, message string) {
 	logrus.Error(message)
 	c.AbortWithStatusJSON(statusCode, Error{Message: message})

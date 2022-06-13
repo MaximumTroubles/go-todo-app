@@ -16,6 +16,8 @@ type TodoList interface {
 	// when you need to return more than one item init slice of sturcurs
 	GetAll(id int) ([]todo.TodoList, error)
 	GetById(id, listId int) (todo.TodoList, error)
+	Delete(id,listId int) error
+	Update(id, listId int, input todo.UpdateListInput) error
 }
 
 type TodoItem interface {
