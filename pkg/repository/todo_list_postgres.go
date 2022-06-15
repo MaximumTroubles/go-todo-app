@@ -109,7 +109,7 @@ func (r *TodoListPostgres) Update(id, listId int, input todo.UpdateListInput) er
 func (r *TodoListPostgres) Delete(id, listId int) error {
 	query := fmt.Sprintf("DELETE FROM %s tl USING %s ul WHERE tl.id = ul.list_id AND ul.user_id=$1 AND ul.list_id=$2",
 		todoListsTable, usersListsTable)
-	result, err := r.db.Exec(query, id, listId)
+	result, _ := r.db.Exec(query, id, listId)
 	rowAffected, err := result.RowsAffected()
 	if rowAffected == 0 {
 		return errors.New("nothing to delete")
