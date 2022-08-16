@@ -19,6 +19,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 
 	auth := router.Group("/auth")
 	{
+		// it is kind of php router where we sign route path to controller method
 		auth.POST("/sigh-up", h.sighUp)
 		auth.POST("/sigh-in", h.sighIn)
 	}

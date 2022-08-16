@@ -7,10 +7,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// it is out controller method where we handle operations with storing data or retrieving through help of service on directly to the database repository
+// in our case we are calling method CreateUser in Authorization service. Since we have provided User struct to BindJson method as a pointer
+// and wasn't getting error, it means that data received in request (in our case it inside gin.Context) correspondent to our User struct and are valid
+// Then we could send it further to the service to do some logic if necessary and send to repository that will try to persist data to database and return user's id.
 func (h *Handler) sighUp(c *gin.Context) {
 	// take out User struct and give pointer to BindJson method that expect object, and will parse income json to our properties with same keys
 	var input todo.User
-
 	if err := c.BindJSON(&input); err != nil {
 		NewErrorResponse(c, http.StatusBadRequest, err.Error())
 		return
@@ -28,7 +31,7 @@ func (h *Handler) sighUp(c *gin.Context) {
 }
 
 // here we are need login and password only. So struct User we can't use due to field "username" are required
-// so we create a new struct 
+// so we create a new struct
 type SignInInput struct {
 	Username string `json:"username" binding:"required"`
 	Password string `json:"password" binding:"required"`
@@ -53,5 +56,3 @@ func (h *Handler) sighIn(c *gin.Context) {
 		"token": token,
 	})
 }
-
-

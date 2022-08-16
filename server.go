@@ -27,7 +27,7 @@ func (s *Server) Run(port string, handler http.Handler) error {
 		BaseContext:       nil,
 		ConnContext:       nil,
 	}
-
+	// under the hood launch endless for loop and listen all incoming request and handle them.
 	return s.httpServer.ListenAndServe()
 }
 

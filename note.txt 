@@ -32,11 +32,11 @@ igrate -database 'postgres://postgres:qwerty@localhost:5436/postgres?sslmode=dis
 
 
 
-Package sqlx it build above standart sql package:
+Package sqlx it build above standard sql package:
 go get -u github.com/jmoiron/sqlx
 
 
-Another usefull package is .env for environment variables:
+Another useful package is .env for environment variables:
 go get -u github.com/joho/godotenv
 
 
